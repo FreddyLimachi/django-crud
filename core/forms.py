@@ -11,19 +11,31 @@ class ProductForm(forms.Form):
 class ProductFormEdit(forms.ModelForm):
     class Meta:
         model = Product
+        
         fields = ['name','amount','size','price']
+
         labels = {
             'name': False,
             'amount': False,
             'size': False,
             'price': False
         }
-        id = {
-            'name': 'name_edit'
-        }
+
         widgets = {
             'name': forms.TextInput(attrs={'placeholder': 'Producto', 'id': 'name_edit'}),
             'amount': forms.NumberInput(attrs={'placeholder': 'Cantidad', 'id': 'amount_edit'}),
             'size': forms.TextInput(attrs={'placeholder': 'Talla', 'id': 'size_edit'}),
             'price': forms.TextInput(attrs={'placeholder': 'price', 'id': 'price_edit'}),
+        }
+
+class SearchForm(forms.ModelForm):
+    class Meta:
+        model = Product
+        fields = ['name']
+        labels = {
+            'name': False,
+        }
+
+        widgets = {
+            'name': forms.TextInput(attrs={'placeholder': 'Buscar por nombre', 'id': 'search', 'type': 'search'}),
         }

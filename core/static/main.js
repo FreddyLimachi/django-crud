@@ -32,7 +32,7 @@ $(document).ready(() => {
     }; product_table();   
 
     //Buscar producto 
-    $('#search').keyup(() => {
+    $('#search_form').keyup(() => {
         let search = $('#search').val();
         $.ajax({
             url: 'search_product',

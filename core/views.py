@@ -1,12 +1,19 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import JsonResponse
 from .models import Product
-from .forms import ProductForm, ProductFormEdit
+from .forms import ProductForm, ProductFormEdit, SearchForm
 
 # Create your views here.
 def home(request):
     product_form = ProductForm()
-    return render(request, 'home.html', {'form': product_form, 'formEdit': ProductFormEdit})
+    formEdit = ProductFormEdit()
+    searchForm = SearchForm()
+
+    return render(request, 'home.html', {
+        'form': product_form, 
+        'formEdit': formEdit,
+        'searchForm': searchForm
+    })
 
 
 def add_product(request):
@@ -55,6 +62,27 @@ def get_product(request):
     
     return JsonResponse(payload)
 
+
+def search_product(request):
+
+    name = str(request.POST.get('name'))
+
+   
+    products = Product.objects.filter(name__icontains = name)
+
+    print(products)
+
+    payload, content = [], {}
+    for result in products:
+        
+        content = {'product_id': result.id, 'name': result.name, 'amount': result.amount,
+                'size': result.size, 'price': result.price}
+        payload.append(content)
+        content = {}
+
+    print(payload)
+
+    return JsonResponse(payload, safe=False)
 
 def update_product(request):
     if request.method == "POST":

@@ -18,11 +18,17 @@ from django.urls import path
 from core import views 
 
 urlpatterns = [
+    # ruta del admin
     path('admin', admin.site.urls),
+
+    # rutas principales
     path('', views.home, name = "home"),
+
+    # datos
     path('add_product', views.add_product, name = "add_product"),
     path('get_product', views.get_product, name = "get_product"),
     path('get_products', views.get_products, name = "get_products"),
+    path('search_product', views.search_product, name = "search_products"),
     path('update_product', views.update_product, name = "update_products"),
     path('delete_product', views.delete_product, name = "delete_products"),
 ]
