@@ -58,19 +58,15 @@ def get_product(request):
         'size': product.size,
         'price': product.price
     }
-    print(payload)
     
     return JsonResponse(payload)
 
 
 def search_product(request):
 
-    name = str(request.POST.get('name'))
-
+    name = request.POST.get('name')
    
     products = Product.objects.filter(name__icontains = name)
-
-    print(products)
 
     payload, content = [], {}
     for result in products:
@@ -79,8 +75,6 @@ def search_product(request):
                 'size': result.size, 'price': result.price}
         payload.append(content)
         content = {}
-
-    print(payload)
 
     return JsonResponse(payload, safe=False)
 
