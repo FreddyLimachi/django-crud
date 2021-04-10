@@ -46,14 +46,11 @@ $(document).ready(() => {
                 response.forEach(record => {                    
                     template += `
                         <tr>
-                            <td class="column0">${record.id}</td>
-                            <td>
-                                <div class='text-center'>
-                                    ${ count }
-                                </div>
-                            </td>
-                            <td class="edit-status">${record.name}</td>
-                            <td>${record.ip_adress}</td>
+                            <td>${record.product_id}</td>
+                            <td>${record.name}</td>
+                            <td>${record.amount}</td>
+                            <td>${record.size}</td>
+                            <td>${record.price}</td>
                             <td>
                                 <div class='text-center'>
                                 <div class='btn-group'>
@@ -69,8 +66,8 @@ $(document).ready(() => {
                 if (count==1){
                     template = `
                         <tr>
-                            <td class="column0">0</td>
-                            <td><div class='text-center'>0</div></td>
+                            <td>0</td>
+                            <td>Sin registro</td>
                             <td>Sin registro</td>
                             <td>Sin registro</td>
                             <td>Sin acciones</td>
@@ -152,7 +149,7 @@ $(document).ready(() => {
                 alert(response.msg);
             }
         });	
-        
+
         $('#product_modal').modal('hide');   
     });
 

@@ -1,12 +1,12 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import JsonResponse
 from .models import Product
-from .forms import ProductForm
+from .forms import ProductForm, ProductFormEdit
 
 # Create your views here.
 def home(request):
     product_form = ProductForm()
-    return render(request, 'home.html', {'form': product_form})
+    return render(request, 'home.html', {'form': product_form, 'formEdit': ProductFormEdit})
 
 
 def add_product(request):
@@ -61,14 +61,10 @@ def update_product(request):
 
         # Aun no funciona esta funcion
         product_id = request.POST.get('product_id')
-        product = Product.objects.get(id=product_id)
-        print(product_id)
-        product.update(
-            name = request.POST.get('name'),
-            amount = request.POST.get('amount'),
-            size = request.POST.get('size'),
-            price = request.POST.get('price'),
-        )
+        product = get_object_or_404(Product, id=product_id)
+
+        formulario = ProductFormEdit(request.POST, instance = product)
+        formulario.save()
 
         return JsonResponse({'msg': 'El producto ha sido actualizado satisfactoriamente'})
 
